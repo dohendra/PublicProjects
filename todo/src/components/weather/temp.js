@@ -8,28 +8,18 @@ const Temp = () => {
 
   const getWeatherInfo = async () => {
     try {
-      let url = `https://api.openweathermap.org/data/2.5/weather?q=${searchValue}&units=metric&appid={WriteYourAPIKey}`;
+      let url =`http://api.weatherapi.com/v1/forecast.json?key=58422350527948fc9cc25055241801&q=${searchValue}&days=1&aqi=no&alerts=no`;
 
       let res = await fetch(url);
       let data = await res.json();
 
-      const { temp, humidity, pressure } = data.main;
-      const { main: weathermood } = data.weather[0];
-      const { name } = data;
-      const { speed } = data.wind;
-      const { country, sunset } = data.sys;
-
-      const myNewWeatherInfo = {
-        temp,
-        humidity,
-        pressure,
-        weathermood,
-        name,
-        speed,
-        country,
-        sunset,
-      };
-
+      const { temp_c, humidity, pressure_mb } = data.current;
+      const { text : weathermood } = data.current.condition;
+      const { name,country} = data.location;
+      const { wind_kph } = data.current;
+      const { sunset } = data.forecast.forecastday[0].astro;
+      console.log(temp_c,humidity,pressure_mb,weathermood,name,wind_kph,country,sunset);
+      const myNewWeatherInfo = {temp_c,humidity,pressure_mb,weathermood,name,wind_kph,country,sunset};
       setTempInfo(myNewWeatherInfo);
     } catch (error) {
       console.log(error);
@@ -70,3 +60,9 @@ const Temp = () => {
 };
 
 export default Temp;
+
+// // we can use different types of date format like given below
+// const currentDate = new Date();
+// const customFormattedString = `${curre
+// ntDate.getDate()}/${currentDate.getMonth() + 1}/${currentDate.getFullYear()} ${currentDate.getHours()}:${currentDate.getMinutes()}`;
+// console.log(customFormattedString);

@@ -1,14 +1,8 @@
+//http://api.weatherapi.com/v1/forecast.json?key=58422350527948fc9cc25055241801&q=London&days=1&aqi=no&alerts=no
 import React, { useEffect } from "react";
 
 const Weathercard = ({
-  temp,
-  humidity,
-  pressure,
-  weathermood,
-  name,
-  speed,
-  country,
-  sunset,
+  temp_c,humidity,pressure_mb,weathermood,name,wind_kph,country,sunset
 }) => {
   const [weatherState, setWeatheState] = React.useState("");
 
@@ -37,8 +31,8 @@ const Weathercard = ({
 
   // converting the seconds into time
   let sec = sunset;
-  let date = new Date(sec * 1000);
-  let timeStr = `${date.getHours()}:${date.getMinutes()}`;
+  // let date = new Date(sec * 1000);
+  // let timeStr = `${date.getHours()}:${date.getMinutes()}`;
   return (
     <>
       <article className="widget">
@@ -48,7 +42,7 @@ const Weathercard = ({
 
         <div className="weatherInfo">
           <div className="temperature">
-            <span>{temp}&deg;</span>
+            <span>{temp_c}&deg;</span>
           </div>
 
           <div className="description">
@@ -69,7 +63,7 @@ const Weathercard = ({
                 <i className={"wi wi-sunset"}></i>
               </p>
               <p className="extra-info-leftside">
-                {timeStr} PM <br />
+                {sec} PM <br />
                 Sunset
               </p>
             </div>
@@ -91,7 +85,7 @@ const Weathercard = ({
                 <i className={"wi wi-rain"}></i>
               </p>
               <p className="extra-info-leftside">
-                {pressure} <br />
+                {pressure_mb} <br />
                 Pressure
               </p>
             </div>
@@ -101,7 +95,7 @@ const Weathercard = ({
                 <i className={"wi wi-strong-wind"}></i>
               </p>
               <p className="extra-info-leftside">
-                {speed} <br />
+                {wind_kph} <br />
                 Speed
               </p>
             </div>
